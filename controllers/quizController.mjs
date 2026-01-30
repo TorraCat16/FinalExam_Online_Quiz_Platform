@@ -2,7 +2,7 @@ import { createQuiz, getQuizById, getVisibleQuizzes, updateQuiz, deleteQuiz } fr
 
 export const createNewQuiz = async (req, res) => {
   const { title, description, timeLimit, attemptsAllowed, visibility } = req.body;
-  const createdBy = req.session.userId;
+  const createdBy = req.session.user.id;
 
   if (!title) return res.status(400).json({ error: "Title required" });
 

@@ -21,7 +21,7 @@ export const quizAnalytics = async (req, res) => {
 };
 
 export const userReport = async (req, res) => {
-  const userId = req.session.userId;
+  const userId = req.session.user.id;
   try {
     const report = await getUserReport(userId);
     res.json(report);

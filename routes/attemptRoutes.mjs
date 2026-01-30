@@ -1,15 +1,16 @@
 import express from "express";
 import { startQuizAttempt, submitQuizAttempt, getUserAttempts } from "../controllers/attemptController.mjs";
+import { requireAuth } from "../middleware/authMiddleware.mjs";
 
 const router = express.Router();
 
-// Start a quiz attempt
-router.post("/start/:quizId", startQuizAttempt);
+// Start a quiz attempt for logged-in users only
+router.post("/start/:quizId", requireAuth, startQuizAttempt);
 
-// Submit answers
-router.post("/submit/:attemptId", submitQuizAttempt);
+// Submit answers for logged-in users only
+router.post("/submit/:attemptId", requireAuth, submitQuizAttempt);
 
 // Get attempts by logged-in user
-router.get("/", getUserAttempts);
+router.get("/", requireAuth, getUserAttempts);
 
 export default router;
