@@ -80,6 +80,13 @@ export const authAPI = {
    */
   logout: () =>
     request('/auth/logout', { method: 'POST' }),
+
+  /**
+   * Check if user is logged in (session exists)
+   * Used on page refresh to restore auth state
+   */
+  me: () =>
+    request('/auth/me'),
 };
 
 // ============================================

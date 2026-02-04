@@ -76,3 +76,12 @@ export const logout = (req, res) => {
     res.json({ message: "Logged out successfully" });
   });
 };
+
+// Check if user is logged in (session exists)
+export const me = (req, res) => {
+  if (req.session.user) {
+    res.json({ user: req.session.user });
+  } else {
+    res.status(401).json({ error: "Not authenticated" });
+  }
+};

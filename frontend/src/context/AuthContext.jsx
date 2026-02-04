@@ -61,12 +61,10 @@ export function AuthProvider({ children }) {
    */
   async function checkAuthStatus() {
     try {
-      // Try to get user's report - if it works, they're logged in
-      // This is a workaround since there's no /auth/me endpoint
-      const report = await authAPI.login('', '').catch(() => null);
-      // If we had a /auth/me endpoint, we'd use that instead
-      setUser(null); // No session persistence check endpoint exists
+      const data = await authAPI.me();
+      setUser(data.user);
     } catch {
+      // Not logged in or session expired
       setUser(null);
     } finally {
       setLoading(false);
