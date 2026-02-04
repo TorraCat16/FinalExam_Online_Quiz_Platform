@@ -142,7 +142,7 @@ export default function TeacherAnalytics() {
                   <div className="stat-card">
                     <div className="stat-value">
                       {analytics?.avg_score 
-                        ? `${Math.round(analytics.avg_score)}%` 
+                        ? `${Math.round(analytics.avg_score)} pts` 
                         : 'N/A'}
                     </div>
                     <div className="stat-label">Average Score</div>
@@ -181,8 +181,8 @@ export default function TeacherAnalytics() {
                               </td>
                               <td className="student-name">{entry.username}</td>
                               <td>
-                                <span className={`score ${entry.score >= 70 ? 'passing' : 'failing'}`}>
-                                  {entry.score}%
+                                <span className="score">
+                                  {entry.score} pts
                                 </span>
                               </td>
                             </tr>

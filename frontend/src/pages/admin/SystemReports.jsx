@@ -232,7 +232,7 @@ export default function SystemReports() {
                     <td>{quiz.analytics?.total_attempts || 0}</td>
                     <td>
                       {quiz.analytics?.avg_score 
-                        ? `${Math.round(quiz.analytics.avg_score)}%`
+                        ? `${Math.round(quiz.analytics.avg_score)} pts`
                         : 'N/A'
                       }
                     </td>

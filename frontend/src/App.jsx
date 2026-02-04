@@ -21,6 +21,7 @@ import TeacherQuizzes from './pages/teacher/QuizList';
 import CreateQuiz from './pages/teacher/CreateQuiz';
 import ManageQuestions from './pages/teacher/ManageQuestions';
 import TeacherAnalytics from './pages/teacher/Analytics';
+import GradeAttempts from './pages/teacher/GradeAttempts';
 
 // Admin Pages
 import AdminDashboard from './pages/admin/Dashboard';
@@ -182,6 +183,14 @@ export default function App() {
         element={
           <ProtectedRoute roles={['teacher', 'staff']}>
             <Layout><TeacherAnalytics /></Layout>
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/teacher/quiz/:quizId/grade" 
+        element={
+          <ProtectedRoute roles={['teacher', 'staff']}>
+            <Layout><GradeAttempts /></Layout>
           </ProtectedRoute>
         } 
       />

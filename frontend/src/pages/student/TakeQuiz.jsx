@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { quizAPI, questionAPI, attemptAPI } from '../../api';
 
@@ -49,9 +49,16 @@ export default function TakeQuiz() {
   const [error, setError] = useState('');
   const [timeLeft, setTimeLeft] = useState(null);
   const [showConfirm, setShowConfirm] = useState(false);
+  
+  // Ref to prevent double execution in React Strict Mode
+  const hasStarted = useRef(false);
 
   // Load quiz, questions, and start attempt
   useEffect(() => {
+    // Prevent double execution in React 18 Strict Mode
+    if (hasStarted.current) return;
+    hasStarted.current = true;
+    
     startQuiz();
   }, [quizId]);
 
@@ -145,6 +152,7 @@ export default function TakeQuiz() {
   /**
    * Calculate score (client-side for now)
    * NOTE: This should ideally be done server-side for security
+   * Returns raw score (number of correct answers), not percentage
    */
   function calculateScore() {
     let correct = 0;
@@ -153,7 +161,7 @@ export default function TakeQuiz() {
         correct++;
       }
     });
-    return Math.round((correct / questions.length) * 100);
+    return correct;
   }
 
   /**
@@ -183,6 +191,7 @@ export default function TakeQuiz() {
         state: { 
           justCompleted: true, 
           score,
+          totalQuestions: questions.length,
           quizTitle: quiz.title 
         } 
       });
@@ -274,7 +283,19 @@ export default function TakeQuiz() {
           <h2 className="question-text">{currentQ.text}</h2>
           
           <div className="options-list">
-            {currentQ.options && Array.isArray(currentQ.options) ? (
+            {/* Short Answer / Text Questions */}
+            {(currentQ.type === 'short_answer' || currentQ.type === 'text' || currentQ.type === 'short') ? (
+              <div className="short-answer-container">
+                <textarea
+                  className="short-answer-input"
+                  placeholder="Type your answer here..."
+                  value={answers[currentQ.id] || ''}
+                  onChange={(e) => selectAnswer(currentQ.id, e.target.value)}
+                  rows={4}
+                />
+              </div>
+            ) : currentQ.options && Array.isArray(currentQ.options) && currentQ.options.length > 0 ? (
+              /* Multiple Choice Questions */
               currentQ.options.map((option, index) => (
                 <label 
                   key={index} 
@@ -292,7 +313,16 @@ export default function TakeQuiz() {
                 </label>
               ))
             ) : (
-              <p>No options available for this question.</p>
+              /* Fallback - treat as short answer if no options */
+              <div className="short-answer-container">
+                <textarea
+                  className="short-answer-input"
+                  placeholder="Type your answer here..."
+                  value={answers[currentQ.id] || ''}
+                  onChange={(e) => selectAnswer(currentQ.id, e.target.value)}
+                  rows={4}
+                />
+              </div>
             )}
           </div>
         </div>
@@ -509,6 +539,31 @@ export default function TakeQuiz() {
         
         .option-text {
           flex: 1;
+        }
+        
+        .short-answer-container {
+          width: 100%;
+        }
+        
+        .short-answer-input {
+          width: 100%;
+          padding: var(--space-md);
+          border: 2px solid var(--color-border);
+          border-radius: var(--border-radius);
+          font-size: var(--font-size-base);
+          font-family: inherit;
+          resize: vertical;
+          min-height: 120px;
+          transition: border-color var(--transition-fast);
+        }
+        
+        .short-answer-input:focus {
+          outline: none;
+          border-color: var(--color-primary);
+        }
+        
+        .short-answer-input::placeholder {
+          color: var(--color-text-light);
         }
         
         .quiz-navigation {

@@ -136,6 +136,12 @@ export default function TeacherQuizList() {
                       >
                         Questions
                       </Link>
+                      <Link 
+                        to={`/teacher/quiz/${quiz.id}/grade`}
+                        className="btn btn-primary btn-sm"
+                      >
+                        Grade
+                      </Link>
                       <button
                         className="btn btn-danger btn-sm"
                         onClick={() => setDeleteConfirm(quiz)}

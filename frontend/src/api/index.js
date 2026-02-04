@@ -181,6 +181,28 @@ export const attemptAPI = {
    * Get current user's attempts
    */
   getMine: () => request('/attempts'),
+
+  /**
+   * Get all attempts for a quiz (Teacher only)
+   * For grading and reviewing student submissions
+   */
+  getByQuizId: (quizId) => request(`/attempts/quiz/${quizId}`),
+
+  /**
+   * Get single attempt details (Teacher only)
+   */
+  getById: (attemptId) => request(`/attempts/${attemptId}`),
+
+  /**
+   * Update score manually (Teacher only)
+   * @param {number} attemptId 
+   * @param {number} score - the new score
+   */
+  grade: (attemptId, score) =>
+    request(`/attempts/${attemptId}/grade`, {
+      method: 'PUT',
+      body: JSON.stringify({ score }),
+    }),
 };
 
 // ============================================

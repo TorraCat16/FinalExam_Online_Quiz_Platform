@@ -56,11 +56,14 @@ export default function StudentDashboard() {
     }
   }
 
-  // Calculate stats
+  // Calculate stats (all returned attempts are already submitted)
   const totalAttempts = attempts.length;
-  const completedAttempts = attempts.filter(a => a.submitted_at);
-  const averageScore = completedAttempts.length > 0
-    ? Math.round(completedAttempts.reduce((sum, a) => sum + (a.score || 0), 0) / completedAttempts.length)
+  
+  // Calculate proper average percentage: (total marks scored / total marks possible) × 100
+  const totalScored = attempts.reduce((sum, a) => sum + (a.score || 0), 0);
+  const totalPossible = attempts.reduce((sum, a) => sum + (parseInt(a.total_questions) || 0), 0);
+  const averageScore = totalPossible > 0
+    ? Math.round((totalScored / totalPossible) * 100)
     : 0;
 
   if (loading) {
@@ -154,7 +157,7 @@ export default function StudentDashboard() {
           <Link to="/student/results">View All →</Link>
         </div>
         
-        {completedAttempts.length === 0 ? (
+        {attempts.length === 0 ? (
           <p className="empty-state">No completed quizzes yet. Start one now!</p>
         ) : (
           <div className="table-container">
@@ -167,12 +170,12 @@ export default function StudentDashboard() {
                 </tr>
               </thead>
               <tbody>
-                {completedAttempts.slice(0, 5).map(attempt => (
+                {attempts.slice(0, 5).map(attempt => (
                   <tr key={attempt.id}>
                     <td>Quiz #{attempt.quiz_id}</td>
                     <td>
-                      <span className={`badge ${attempt.score >= 70 ? 'badge-success' : 'badge-error'}`}>
-                        {attempt.score}%
+                      <span className="badge badge-primary">
+                        {attempt.score} / {attempt.total_questions || '?'}
                       </span>
                     </td>
                     <td>{new Date(attempt.submitted_at).toLocaleDateString()}</td>

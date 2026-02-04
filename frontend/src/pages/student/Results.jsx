@@ -29,6 +29,7 @@ export default function StudentResults() {
   // Check if user just completed a quiz (passed via navigation state)
   const justCompleted = location.state?.justCompleted;
   const recentScore = location.state?.score;
+  const recentTotalQuestions = location.state?.totalQuestions;
   const recentQuizTitle = location.state?.quizTitle;
 
   useEffect(() => {
@@ -47,12 +48,13 @@ export default function StudentResults() {
     }
   }
 
-  // Calculate statistics
+  // Calculate statistics with proper percentage: (total marks scored / total marks possible) × 100
   const totalAttempts = results.length;
-  const averageScore = totalAttempts > 0
-    ? Math.round(results.reduce((sum, r) => sum + (r.score || 0), 0) / totalAttempts)
+  const totalScored = results.reduce((sum, r) => sum + (r.score || 0), 0);
+  const totalPossible = results.reduce((sum, r) => sum + (parseInt(r.total_questions) || 0), 0);
+  const averageScore = totalPossible > 0
+    ? Math.round((totalScored / totalPossible) * 100)
     : 0;
-  const passedCount = results.filter(r => r.score >= 70).length;
 
   if (loading) {
     return (
@@ -75,7 +77,7 @@ export default function StudentResults() {
         <div className="alert alert-success completion-alert">
           <h3>Quiz Completed!</h3>
           <p>
-            You scored <strong>{recentScore}%</strong> on "{recentQuizTitle}"
+            You scored <strong>{recentScore}{recentTotalQuestions ? ` / ${recentTotalQuestions}` : ''}</strong> on "{recentQuizTitle}"
           </p>
         </div>
       )}
@@ -89,12 +91,12 @@ export default function StudentResults() {
           <div className="stat-label">Total Quizzes</div>
         </div>
         <div className="stat-card">
-          <div className="stat-value">{averageScore}%</div>
-          <div className="stat-label">Average Score</div>
+          <div className="stat-value">{totalScored} / {totalPossible}</div>
+          <div className="stat-label">Total Score</div>
         </div>
         <div className="stat-card">
-          <div className="stat-value">{passedCount}</div>
-          <div className="stat-label">Passed (≥70%)</div>
+          <div className="stat-value">{averageScore}%</div>
+          <div className="stat-label">Average</div>
         </div>
       </section>
 
@@ -127,16 +129,14 @@ export default function StudentResults() {
                     <td className="quiz-name">{result.quiz || `Quiz #${index + 1}`}</td>
                     <td>
                       <span className="score-display">
-                        {result.score !== null ? `${result.score}%` : 'N/A'}
+                        {result.score !== null 
+                          ? `${result.score} / ${result.total_questions || '?'}` 
+                          : 'N/A'}
                       </span>
                     </td>
                     <td>
                       {result.score !== null ? (
-                        result.score >= 70 ? (
-                          <span className="badge badge-success">Passed</span>
-                        ) : (
-                          <span className="badge badge-error">Failed</span>
-                        )
+                        <span className="badge badge-success">Completed</span>
                       ) : (
                         <span className="badge badge-warning">Pending</span>
                       )}

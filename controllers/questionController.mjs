@@ -7,7 +7,8 @@ export const addQuestion = async (req, res) => {
   try {
     const question = await createQuestion({ quizId, text, type, options, correctAnswer });
     res.status(201).json({ message: "Question added", question });
-  } catch {
+  } catch (err) {
+    console.error("Add question error:", err);
     res.status(500).json({ error: "Failed to add question" });
   }
 };
