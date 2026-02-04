@@ -1,39 +1,37 @@
 /**
- * Global Styles
- * 
- * DESIGN PHILOSOPHY:
- * - Clean, modern interface with good contrast
+ * Global Styles - Minimalist Edition
+ * * DESIGN PHILOSOPHY:
+ * - High-contrast monochromatic palette (Black & White)
+ * - Elegant typography pairing (Serif Headings + Sans-serif Body)
  * - Consistent spacing using 8px grid system
- * - Accessible color choices (WCAG AA compliant)
  * - Mobile-first responsive design
- * 
- * CSS CUSTOM PROPERTIES (Variables):
- * - Centralized colors - change theme in one place
- * - Consistent spacing - 4px, 8px, 16px, 24px, 32px
- * - Easy to maintain and scale
  */
 
 /* ============================================
-   CSS Variables - Single source for theming
+   CSS Variables - Monochromatic Theme
    ============================================ */
 :root {
-  /* Colors - Primary palette */
-  --color-primary: #2563eb;
-  --color-primary-dark: #1d4ed8;
-  --color-primary-light: #3b82f6;
+  /* Fonts from your list */
+  --font-serif: 'Playfair Display', 'Merriweather', 'Georgia', serif;
+  --font-sans: 'Inter', 'Helvetica Neue', 'Arial', 'Roboto', sans-serif;
+
+  /* Colors - Pure Minimalist Palette */
+  --color-primary: #000000;
+  --color-primary-dark: #171717;
+  --color-primary-light: #404040;
   
-  /* Colors - Semantic */
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-error: #ef4444;
-  --color-info: #06b6d4;
+  /* Colors - Semantic (Subtle) */
+  --color-success: #166534;
+  --color-warning: #854d0e;
+  --color-error: #991b1b;
+  --color-info: #1e293b;
   
   /* Colors - Neutral */
-  --color-bg: #f8fafc;
+  --color-bg: #ffffff;
   --color-bg-card: #ffffff;
-  --color-text: #1e293b;
-  --color-text-light: #64748b;
-  --color-border: #e2e8f0;
+  --color-text: #000000;
+  --color-text-light: #525252;
+  --color-border: #e5e5e5;
   
   /* Spacing - 8px grid system */
   --space-xs: 4px;
@@ -43,29 +41,26 @@
   --space-xl: 32px;
   --space-2xl: 48px;
   
-  /* Typography */
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Typography Sizes */
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
   --font-size-lg: 1.125rem;
   --font-size-xl: 1.25rem;
   --font-size-2xl: 1.5rem;
-  --font-size-3xl: 2rem;
+  --font-size-3xl: 2.5rem;
   
   /* Borders & Shadows */
-  --border-radius: 8px;
-  --border-radius-lg: 12px;
+  --border-radius: 0px; /* Sharp corners for a more modern minimalist look */
+  --border-radius-lg: 0px;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
   
   /* Transitions */
   --transition-fast: 150ms ease;
-  --transition-normal: 250ms ease;
 }
 
 /* ============================================
-   CSS Reset - Consistent baseline
+   CSS Reset
    ============================================ */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -76,11 +71,10 @@
 html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  font-family: var(--font-family);
+  font-family: var(--font-sans);
   font-size: var(--font-size-base);
   line-height: 1.6;
   color: var(--color-text);
@@ -89,7 +83,7 @@ body {
 }
 
 /* ============================================
-   Layout Classes
+   Layout
    ============================================ */
 .app-layout {
   min-height: 100vh;
@@ -99,87 +93,61 @@ body {
 
 .main-content {
   flex: 1;
-  padding: var(--space-lg);
-  max-width: 1200px;
+  padding: var(--space-2xl) var(--space-lg);
+  max-width: 1000px;
   margin: 0 auto;
   width: 100%;
 }
 
 /* ============================================
-   Loading States
-   ============================================ */
-.app-loading,
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  gap: var(--space-md);
-}
-
-.loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid var(--color-border);
-  border-top-color: var(--color-primary);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* ============================================
    Typography
    ============================================ */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
-  line-height: 1.3;
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.2;
   color: var(--color-text);
+  margin-bottom: var(--space-md);
+  letter-spacing: -0.02em;
 }
 
 h1 { font-size: var(--font-size-3xl); }
 h2 { font-size: var(--font-size-2xl); }
 h3 { font-size: var(--font-size-xl); }
-h4 { font-size: var(--font-size-lg); }
 
 p {
   margin-bottom: var(--space-md);
+  color: var(--color-text-light);
 }
 
 a {
   color: var(--color-primary);
-  text-decoration: none;
-  transition: color var(--transition-fast);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: opacity var(--transition-fast);
 }
 
 a:hover {
-  color: var(--color-primary-dark);
-  text-decoration: underline;
+  opacity: 0.6;
 }
 
 /* ============================================
-   Buttons
+   Buttons (Minimalist Black)
    ============================================ */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-md);
-  font-size: var(--font-size-base);
-  font-weight: 500;
-  border: none;
+  padding: var(--space-sm) var(--space-xl);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--color-primary);
   border-radius: var(--border-radius);
   cursor: pointer;
   transition: all var(--transition-fast);
-}
-
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 .btn-primary {
@@ -188,213 +156,80 @@ a:hover {
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: var(--color-primary-dark);
+  background-color: transparent;
+  color: var(--color-primary);
 }
 
 .btn-secondary {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
+  background-color: transparent;
+  color: var(--color-primary);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background-color: var(--color-border);
-}
-
-.btn-danger {
-  background-color: var(--color-error);
+  background-color: var(--color-primary);
   color: white;
-}
-
-.btn-danger:hover:not(:disabled) {
-  background-color: #dc2626;
-}
-
-.btn-success {
-  background-color: var(--color-success);
-  color: white;
-}
-
-.btn-success:hover:not(:disabled) {
-  background-color: #059669;
 }
 
 /* ============================================
    Forms
    ============================================ */
-.form-group {
-  margin-bottom: var(--space-md);
-}
-
 .form-label {
   display: block;
   margin-bottom: var(--space-xs);
-  font-weight: 500;
-  color: var(--color-text);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
 }
 
-.form-input,
-.form-select,
-.form-textarea {
+.form-input {
   width: 100%;
-  padding: var(--space-sm) var(--space-md);
-  font-size: var(--font-size-base);
+  padding: var(--space-md);
   border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  background-color: white;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  border-radius: 0;
+  font-family: var(--font-sans);
+  transition: border-color var(--transition-fast);
 }
 
-.form-input:focus,
-.form-select:focus,
-.form-textarea:focus {
+.form-input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-.form-input::placeholder {
-  color: var(--color-text-light);
-}
-
-.form-error {
-  color: var(--color-error);
-  font-size: var(--font-size-sm);
-  margin-top: var(--space-xs);
 }
 
 /* ============================================
-   Cards
+   Cards & Containers
    ============================================ */
 .card {
   background-color: var(--color-bg-card);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-sm);
-  padding: var(--space-lg);
+  padding: var(--space-xl);
   border: 1px solid var(--color-border);
 }
 
-.card-header {
-  margin-bottom: var(--space-md);
-  padding-bottom: var(--space-md);
-  border-bottom: 1px solid var(--color-border);
-}
-
 .card-title {
+  font-family: var(--font-serif);
   font-size: var(--font-size-xl);
-  font-weight: 600;
+  margin-bottom: var(--space-sm);
 }
 
 /* ============================================
-   Tables
+   Loading State
    ============================================ */
-.table-container {
-  overflow-x: auto;
+.loading-spinner {
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  padding: var(--space-sm) var(--space-md);
-  text-align: left;
-  border-bottom: 1px solid var(--color-border);
-}
-
-th {
-  font-weight: 600;
-  background-color: var(--color-bg);
-}
-
-tr:hover {
-  background-color: var(--color-bg);
-}
-
-/* ============================================
-   Alerts / Messages
-   ============================================ */
-.alert {
-  padding: var(--space-md);
-  border-radius: var(--border-radius);
-  margin-bottom: var(--space-md);
-}
-
-.alert-error {
-  background-color: #fef2f2;
-  color: var(--color-error);
-  border: 1px solid #fecaca;
-}
-
-.alert-success {
-  background-color: #ecfdf5;
-  color: var(--color-success);
-  border: 1px solid #a7f3d0;
-}
-
-.alert-info {
-  background-color: #ecfeff;
-  color: var(--color-info);
-  border: 1px solid #a5f3fc;
-}
-
-/* ============================================
-   Badge / Tags
-   ============================================ */
-.badge {
-  display: inline-block;
-  padding: var(--space-xs) var(--space-sm);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  border-radius: 9999px;
-}
-
-.badge-primary {
-  background-color: #dbeafe;
-  color: var(--color-primary);
-}
-
-.badge-success {
-  background-color: #dcfce7;
-  color: var(--color-success);
-}
-
-.badge-warning {
-  background-color: #fef3c7;
-  color: var(--color-warning);
-}
-
-.badge-error {
-  background-color: #fee2e2;
-  color: var(--color-error);
-}
-
-/* ============================================
-   404 Page
-   ============================================ */
-.not-found {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  text-align: center;
-}
-
-.not-found h1 {
-  font-size: 6rem;
-  color: var(--color-text-light);
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* ============================================
    Responsive
    ============================================ */
 @media (max-width: 768px) {
-  .main-content {
-    padding: var(--space-md);
-  }
-  
   h1 { font-size: var(--font-size-2xl); }
-  h2 { font-size: var(--font-size-xl); }
+  .main-content { padding-top: var(--space-xl); }
 }
