@@ -39,3 +39,48 @@ export const getAttemptsByQuiz = async (quizId) => {
   );
   return result.rows;
 };
+
+// Get attempt details with quiz time limit
+export const getAttemptWithQuizLimit = async (attemptId) => {
+  const result = await pool.query(
+    `
+    SELECT 
+      a.start_time,
+      q.time_limit
+    FROM attempts a
+    JOIN quizzes q ON a.quiz_id = q.id
+    WHERE a.id = $1
+    `,
+    [attemptId]
+  );
+
+  return result.rows[0];
+};
+
+// Count attempts a user made on quiz
+export const countAttemptsByUser = async (userId, quizId) => {
+  const result = await pool.query(
+    `
+    SELECT COUNT(*) 
+    FROM attempts
+    WHERE user_id = $1 AND quiz_id = $2
+    `,
+    [userId, quizId]
+  );
+
+  return Number(result.rows[0].count);
+};
+
+// Get allowed attempts for a quiz
+export const getQuizAttemptsAllowed = async (quizId) => {
+  const result = await pool.query(
+    `
+    SELECT attempts_allowed
+    FROM quizzes
+    WHERE id = $1
+    `,
+    [quizId]
+  );
+
+  return result.rows[0];
+};
