@@ -28,6 +28,7 @@ export const register = async (req, res) => {
       user: req.session.user,
     });
   } catch (err) {
+    console.error("Registration error:", err);
     res.status(500).json({ error: "Registration failed" });
   }
 };
@@ -61,6 +62,7 @@ export const login = async (req, res) => {
       user: req.session.user,
     });
   } catch (err) {
+    console.error("Login error:", err);
     res.status(500).json({ error: "Login failed" });
   }
 };
