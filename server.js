@@ -60,4 +60,6 @@ app.get("/", (req, res) => {
 });
 
 // Start server
-app.li
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

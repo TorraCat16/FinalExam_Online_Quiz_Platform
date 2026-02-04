@@ -1,0 +1,115 @@
+/**
+ * Authentication Page Styles
+ * 
+ * LAYOUT: Centered card on full-height background
+ * Used for Login and Register pages
+ * 
+ * ┌─────────────────────────────────────────┐
+ * │                                         │
+ * │          ┌─────────────────┐            │
+ * │          │     Logo        │            │
+ * │          │     Form        │            │
+ * │          │     Submit      │            │
+ * │          │     Link        │            │
+ * │          └─────────────────┘            │
+ * │                                         │
+ * └─────────────────────────────────────────┘
+ */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-2xl);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.auth-header h1 {
+  font-size: var(--font-size-2xl);
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
+}
+
+.auth-header p {
+  color: var(--color-text-light);
+  margin-bottom: 0;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.auth-form .form-group {
+  margin-bottom: 0;
+}
+
+.auth-submit {
+  width: 100%;
+  padding: var(--space-md);
+  margin-top: var(--space-sm);
+  font-size: var(--font-size-base);
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.auth-footer p {
+  color: var(--color-text-light);
+  margin-bottom: 0;
+}
+
+.auth-footer a {
+  font-weight: 500;
+}
+
+/* Role selector for registration */
+.role-selector {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.role-option {
+  flex: 1;
+  padding: var(--space-sm) var(--space-md);
+  text-align: center;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-weight: 500;
+}
+
+.role-option:hover {
+  border-color: var(--color-primary-light);
+}
+
+.role-option.selected {
+  border-color: var(--color-primary);
+  background-color: #eff6ff;
+  color: var(--color-primary);
+}
+
+.role-option input {
+  display: none;
+}

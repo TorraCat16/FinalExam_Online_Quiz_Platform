@@ -1,0 +1,113 @@
+/**
+ * Navbar Styles
+ * 
+ * LAYOUT: Flexbox with space-between
+ * ┌──────────┬────────────────────────┬──────────────┐
+ * │  Brand   │     Menu Links         │  User Info   │
+ * └──────────┴────────────────────────┴──────────────┘
+ */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  background-color: var(--color-bg-card);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Brand / Logo */
+.navbar-brand a {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.navbar-brand a:hover {
+  color: var(--color-primary-dark);
+  text-decoration: none;
+}
+
+/* Navigation Links */
+.navbar-menu {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.navbar-menu a {
+  padding: var(--space-sm) var(--space-md);
+  color: var(--color-text);
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.navbar-menu a:hover {
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.navbar-menu a.active {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* User Section */
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.user-info {
+  font-weight: 500;
+}
+
+.user-role {
+  color: var(--color-text-light);
+  font-weight: 400;
+  font-size: var(--font-size-sm);
+}
+
+.logout-btn {
+  padding: var(--space-sm) var(--space-md);
+  background-color: transparent;
+  color: var(--color-error);
+  border: 1px solid var(--color-error);
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.logout-btn:hover {
+  background-color: var(--color-error);
+  color: white;
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .navbar-menu {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .navbar-menu a {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-size-sm);
+  }
+}
