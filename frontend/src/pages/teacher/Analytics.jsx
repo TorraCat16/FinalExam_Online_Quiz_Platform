@@ -112,8 +112,8 @@ export default function TeacherAnalytics() {
                   onClick={() => selectQuiz(quiz)}
                 >
                   <span className="quiz-name">{quiz.title}</span>
-                  <span className={`badge ${quiz.visibility ? 'badge-success' : 'badge-warning'}`}>
-                    {quiz.visibility ? 'Published' : 'Draft'}
+                  <span className="badge badge-success">
+                    Published
                   </span>
                 </button>
               ))}

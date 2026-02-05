@@ -13,7 +13,7 @@ import { userAPI, quizAPI, reportAPI } from '../../api';
  * 
  * DISPLAYS:
  * - Total users by role
- * - Total quizzes (published vs draft)
+ * - Total quizzes 
  * - Quiz analytics overview
  * - Top performing quizzes
  * 
@@ -75,7 +75,6 @@ export default function SystemReports() {
   const quizStats = {
     total: quizzes.length,
     published: quizzes.filter(q => q.visibility).length,
-    draft: quizzes.filter(q => !q.visibility).length,
   };
 
   // Calculate overall attempt stats
@@ -196,10 +195,7 @@ export default function SystemReports() {
             <span className="quiz-stat-value published">{quizStats.published}</span>
             <span className="quiz-stat-label">Published</span>
           </div>
-          <div className="quiz-stat">
-            <span className="quiz-stat-value draft">{quizStats.draft}</span>
-            <span className="quiz-stat-label">Draft</span>
-          </div>
+    
         </div>
       </section>
 
@@ -330,8 +326,7 @@ export default function SystemReports() {
         }
         
         .quiz-stat-value.published { color: var(--color-success); }
-        .quiz-stat-value.draft { color: var(--color-warning); }
-        
+                
         .quiz-stat-label {
           color: var(--color-text-light);
         }

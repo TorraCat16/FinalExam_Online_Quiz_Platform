@@ -15,7 +15,7 @@ import { quizAPI } from '../../api';
  * 
  * DISPLAYS:
  * 1. Welcome message
- * 2. Quick stats (total quizzes, published, drafts)
+ * 2. Quick stats (total quizzes, published)
  * 3. Quick action buttons
  * 4. Recent quizzes preview
  */
@@ -47,7 +47,6 @@ export default function TeacherDashboard() {
   // Calculate stats
   const totalQuizzes = quizzes.length;
   const publishedQuizzes = quizzes.filter(q => q.visibility).length;
-  const draftQuizzes = quizzes.filter(q => !q.visibility).length;
 
   if (loading) {
     return (
@@ -77,10 +76,6 @@ export default function TeacherDashboard() {
         <div className="stat-card">
           <div className="stat-value">{publishedQuizzes}</div>
           <div className="stat-label">Published</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-value">{draftQuizzes}</div>
-          <div className="stat-label">Drafts</div>
         </div>
       </section>
 
@@ -121,8 +116,8 @@ export default function TeacherDashboard() {
               <div key={quiz.id} className="card quiz-card">
                 <div className="quiz-card-header">
                   <h3>{quiz.title}</h3>
-                  <span className={`badge ${quiz.visibility ? 'badge-success' : 'badge-warning'}`}>
-                    {quiz.visibility ? 'Published' : 'Draft'}
+                  <span className="badge badge-success">
+                    Published
                   </span>
                 </div>
                 <p>{quiz.description || 'No description'}</p>

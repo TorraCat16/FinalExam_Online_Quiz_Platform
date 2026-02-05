@@ -12,12 +12,12 @@ import { quizAPI } from '../../api';
  * Create a new quiz with all its settings.
  * After creation, redirects to question management.
  * 
- * QUIZ SETTINGS (from requirements):
+ * QUIZ SETTINGS :
  * - Title: Quiz name
  * - Description: What the quiz is about
  * - Time Limit: Minutes allowed (optional)
  * - Attempts Allowed: How many times student can try (optional)
- * - Visibility: Published (visible to students) or Draft
+ * - Visibility: Published (visible to students) 
  * 
  * WHY REDIRECT TO QUESTIONS AFTER CREATE?
  * - Matches natural flow: create quiz → add questions
@@ -33,7 +33,6 @@ export default function CreateQuiz() {
     description: '',
     timeLimit: '',
     attemptsAllowed: '',
-    visibility: false  // Start as draft
   });
   
   // UI state
@@ -83,7 +82,8 @@ export default function CreateQuiz() {
         description: formData.description.trim() || null,
         timeLimit: formData.timeLimit ? parseInt(formData.timeLimit) : null,
         attemptsAllowed: formData.attemptsAllowed ? parseInt(formData.attemptsAllowed) : null,
-        visibility: formData.visibility
+        // Drafts no longer supported: new quizzes are always published
+        visibility: true,
       };
 
       const result = await quizAPI.create(quizData);
@@ -192,41 +192,6 @@ export default function CreateQuiz() {
           </div>
         </section>
 
-        {/* Visibility */}
-        <section className="form-section">
-          <h2>Visibility</h2>
-          
-          <div className="visibility-toggle">
-            <label className={`visibility-option ${!formData.visibility ? 'selected' : ''}`}>
-              <input
-                type="radio"
-                name="visibility"
-                checked={!formData.visibility}
-                onChange={() => setFormData(prev => ({ ...prev, visibility: false }))}
-                disabled={loading}
-              />
-              <div className="option-content">
-                <span className="option-title">Draft</span>
-                <span className="option-desc">Only you can see this quiz. Publish when ready.</span>
-              </div>
-            </label>
-            
-            <label className={`visibility-option ${formData.visibility ? 'selected' : ''}`}>
-              <input
-                type="radio"
-                name="visibility"
-                checked={formData.visibility}
-                onChange={() => setFormData(prev => ({ ...prev, visibility: true }))}
-                disabled={loading}
-              />
-              <div className="option-content">
-                <span className="option-title">Published</span>
-                <span className="option-desc">Students can see and take this quiz immediately.</span>
-              </div>
-            </label>
-          </div>
-        </section>
-
         {/* Submit */}
         <div className="form-actions">
           <button 
@@ -315,62 +280,12 @@ export default function CreateQuiz() {
           color: var(--color-text-light);
         }
         
-        .visibility-toggle {
-          display: flex;
-          gap: var(--space-md);
-        }
-        
-        .visibility-option {
-          flex: 1;
-          display: flex;
-          align-items: flex-start;
-          gap: var(--space-md);
-          padding: var(--space-md);
-          border: 2px solid var(--color-border);
-          border-radius: var(--border-radius);
-          cursor: pointer;
-          transition: all var(--transition-fast);
-        }
-        
-        .visibility-option:hover {
-          border-color: var(--color-primary-light);
-        }
-        
-        .visibility-option.selected {
-          border-color: var(--color-primary);
-          background: #eff6ff;
-        }
-        
-        .visibility-option input {
-          margin-top: 4px;
-        }
-        
-        .option-content {
-          display: flex;
-          flex-direction: column;
-        }
-        
-        .option-title {
-          font-weight: 600;
-        }
-        
-        .option-desc {
-          font-size: var(--font-size-sm);
-          color: var(--color-text-light);
-        }
-        
         .form-actions {
           display: flex;
           justify-content: flex-end;
           gap: var(--space-md);
           padding-top: var(--space-lg);
           border-top: 1px solid var(--color-border);
-        }
-        
-        @media (max-width: 600px) {
-          .visibility-toggle {
-            flex-direction: column;
-          }
         }
       `}</style>
     </div>

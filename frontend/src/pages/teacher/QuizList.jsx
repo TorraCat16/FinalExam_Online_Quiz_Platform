@@ -122,10 +122,10 @@ export default function TeacherQuizList() {
                   <td>{quiz.attempts_allowed || 'Unlimited'}</td>
                   <td>
                     <button
-                      className={`status-toggle ${quiz.visibility ? 'published' : 'draft'}`}
+                      className="status-toggle published"
                       onClick={() => toggleVisibility(quiz)}
                     >
-                      {quiz.visibility ? 'Published' : 'Draft'}
+                      Published
                     </button>
                   </td>
                   <td>
@@ -273,15 +273,6 @@ export default function TeacherQuizList() {
         
         .status-toggle.published:hover {
           background: #bbf7d0;
-        }
-        
-        .status-toggle.draft {
-          background: #fef3c7;
-          color: var(--color-warning);
-        }
-        
-        .status-toggle.draft:hover {
-          background: #fde68a;
         }
         
         .action-buttons {
