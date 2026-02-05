@@ -14,6 +14,7 @@ import StudentDashboard from './pages/student/Dashboard';
 import QuizList from './pages/student/QuizList';
 import TakeQuiz from './pages/student/TakeQuiz';
 import StudentResults from './pages/student/Results';
+import ReviewAttempt from './pages/student/ReviewAttempt';
 
 // Teacher Pages
 import TeacherDashboard from './pages/teacher/Dashboard';
@@ -137,6 +138,14 @@ export default function App() {
         element={
           <ProtectedRoute roles={['student']}>
             <Layout><StudentResults /></Layout>
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/student/results/:attemptId" 
+        element={
+          <ProtectedRoute roles={['student']}>
+            <Layout><ReviewAttempt /></Layout>
           </ProtectedRoute>
         } 
       />

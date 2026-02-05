@@ -28,6 +28,7 @@ export const getQuizAnalytics = async (quizId) => {
 export const getUserReport = async (userId) => {
   const result = await pool.query(
     `SELECT 
+       a.id AS attempt_id,
        q.title AS quiz, 
        a.score, 
        a.submitted_at,

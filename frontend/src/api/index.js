@@ -251,4 +251,13 @@ export const userAPI = {
       method: 'PUT',
       body: JSON.stringify({ role }),
     }),
+
+  /**
+   * Delete a user (Admin only)
+   * Used by the ManageUsers page for user deletion.
+   */
+  delete: (id) =>
+    request(`/users/${id}`, {
+      method: 'DELETE',
+    }),
 };

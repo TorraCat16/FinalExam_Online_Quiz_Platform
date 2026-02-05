@@ -156,6 +156,7 @@ export default function StudentResults() {
                   <th>Score</th>
                   <th>Status</th>
                   <th>Date</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -194,6 +195,17 @@ export default function StudentResults() {
                             minute: '2-digit'
                           })
                         : 'Not submitted'}
+                    </td>
+                    <td>
+                      {result.score !== null && (
+                        <Link
+                          to={`/student/results/${result.attempt_id}`}
+                          state={{ quizTitle: result.quiz }}
+                          className="btn btn-secondary"
+                        >
+                          Review
+                        </Link>
+                      )}
                     </td>
                   </tr>
                 ))}

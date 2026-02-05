@@ -72,6 +72,35 @@ export default function ManageUsers() {
     }
   }
 
+  async function deleteUser(userId, username) {
+    // Prevent deleting own account
+    if (userId === currentUser.id) {
+      setError("You cannot delete your own account");
+      return;
+    }
+
+    // Confirm deletion
+    if (!window.confirm(`Are you sure you want to delete user "${username}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    setUpdatingId(userId);
+    setError('');
+    setSuccess('');
+
+    try {
+      await userAPI.delete(userId);
+      setSuccess('User deleted successfully');
+
+      // Remove from local state
+      setUsers(prev => prev.filter(u => u.id !== userId));
+    } catch (err) {
+      setError(err.message || 'Failed to delete user');
+    } finally {
+      setUpdatingId(null);
+    }
+  }
+
   // Calculate stats
   const totalUsers = users.length;
   const byRole = {
@@ -130,6 +159,7 @@ export default function ManageUsers() {
                 <th>Username</th>
                 <th>Current Role</th>
                 <th>Change Role</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -164,6 +194,19 @@ export default function ManageUsers() {
                           <span className="updating">Updating...</span>
                         )}
                       </div>
+                    )}
+                  </td>
+                  <td>
+                    {u.id === currentUser.id ? (
+                      <span className="no-change">-</span>
+                    ) : (
+                      <button
+                        className="btn btn-danger btn-sm"
+                        onClick={() => deleteUser(u.id, u.username)}
+                        disabled={updatingId === u.id}
+                      >
+                        Delete
+                      </button>
                     )}
                   </td>
                 </tr>
