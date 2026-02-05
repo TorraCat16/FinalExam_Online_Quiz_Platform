@@ -43,3 +43,39 @@ export const updateUserRole = async (id, role) => {
   );
   return result.rows[0];
 };
+
+// Delete user by ID with dependent cleanup to avoid FK violations
+export const deleteUser = async (id) => {
+  const userId = Number(id);
+
+  // Remove attempts for this user
+  await pool.query(`DELETE FROM attempts WHERE user_id = $1`, [userId]);
+
+  // Remove attempts tied to quizzes created by this user
+  await pool.query(
+    `DELETE FROM attempts 
+     WHERE quiz_id IN (SELECT id FROM quizzes WHERE created_by = $1)`,
+    [userId]
+  );
+
+  // Remove questions for quizzes created by this user
+  await pool.query(
+    `DELETE FROM questions 
+     WHERE quiz_id IN (SELECT id FROM quizzes WHERE created_by = $1)`,
+    [userId]
+  );
+
+  // Remove quizzes created by this user
+  await pool.query(`DELETE FROM quizzes WHERE created_by = $1`, [userId]);
+
+  // Remove existing sessions for this user (stored as JSON in session table)
+  await pool.query(
+    `DELETE FROM session 
+     WHERE sess::json -> 'user' ->> 'id' = $1`,
+    [String(userId)]
+  );
+
+  // Delete the user
+  const result = await pool.query(`DELETE FROM users WHERE id = $1`, [userId]);
+  return result.rowCount;
+};

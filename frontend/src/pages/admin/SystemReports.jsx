@@ -83,12 +83,6 @@ export default function SystemReports() {
     sum + (parseInt(q.analytics?.total_attempts) || 0), 0
   );
 
-  // Sort quizzes by attempts for "most popular"
-  const popularQuizzes = [...quizAnalytics]
-    .filter(q => q.analytics?.total_attempts > 0)
-    .sort((a, b) => (b.analytics?.total_attempts || 0) - (a.analytics?.total_attempts || 0))
-    .slice(0, 5);
-
   if (loading) {
     return (
       <div className="loading-container">
@@ -207,46 +201,6 @@ export default function SystemReports() {
             <span className="quiz-stat-label">Draft</span>
           </div>
         </div>
-      </section>
-
-      {/* Popular Quizzes */}
-      <section className="card report-section">
-        <h2>Most Popular Quizzes</h2>
-        {popularQuizzes.length === 0 ? (
-          <p className="no-data">No quiz attempts recorded yet.</p>
-        ) : (
-          <div className="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>Quiz</th>
-                  <th>Attempts</th>
-                  <th>Avg Score</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {popularQuizzes.map(quiz => (
-                  <tr key={quiz.id}>
-                    <td className="quiz-name">{quiz.title}</td>
-                    <td>{quiz.analytics?.total_attempts || 0}</td>
-                    <td>
-                      {quiz.analytics?.avg_score 
-                        ? `${Math.round(quiz.analytics.avg_score)} pts`
-                        : 'N/A'
-                      }
-                    </td>
-                    <td>
-                      <span className={`badge ${quiz.visibility ? 'badge-success' : 'badge-warning'}`}>
-                        {quiz.visibility ? 'Published' : 'Draft'}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
       </section>
 
       <style>{`

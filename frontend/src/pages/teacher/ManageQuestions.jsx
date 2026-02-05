@@ -621,6 +621,20 @@ export default function ManageQuestions() {
           padding-top: var(--space-sm);
           border-top: 1px solid var(--color-border);
         }
+
+        /* Alert styles to match global red error */
+        .alert {
+          padding: var(--space-md);
+          border: 1px solid var(--color-border);
+          margin-bottom: var(--space-md);
+          font-weight: 500;
+        }
+
+        .alert-error {
+          background-color: #fef2f2;
+          border-color: #fecdd3;
+          color: #b91c1c;
+        }
         
         .btn-sm {
           padding: var(--space-xs) var(--space-sm);
