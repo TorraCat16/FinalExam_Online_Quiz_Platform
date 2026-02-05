@@ -52,6 +52,16 @@ export default function CreateQuiz() {
   }
 
   /**
+   * Prevent non-integer characters in number inputs
+   * Blocks: e, E, +, -, . (only allows digits)
+   */
+  function handleNumberKeyDown(e) {
+    if (['e', 'E', '+', '-', '.'].includes(e.key)) {
+      e.preventDefault();
+    }
+  }
+
+  /**
    * Handle form submission
    */
   async function handleSubmit(e) {
@@ -154,6 +164,7 @@ export default function CreateQuiz() {
                 placeholder="Leave empty for unlimited"
                 value={formData.timeLimit}
                 onChange={handleChange}
+                onKeyDown={handleNumberKeyDown}
                 disabled={loading}
                 min="1"
               />
@@ -172,6 +183,7 @@ export default function CreateQuiz() {
                 placeholder="Leave empty for unlimited"
                 value={formData.attemptsAllowed}
                 onChange={handleChange}
+                onKeyDown={handleNumberKeyDown}
                 disabled={loading}
                 min="1"
               />
@@ -274,8 +286,26 @@ export default function CreateQuiz() {
         }
         
         .form-textarea {
+          width: 100%;
           resize: vertical;
           min-height: 80px;
+          padding: var(--space-md);
+          border: 1px solid var(--color-border);
+          border-radius: var(--border-radius);
+          font-size: var(--font-size-base);
+          font-family: inherit;
+          transition: border-color var(--transition-fast);
+          box-sizing: border-box;
+        }
+        
+        .form-textarea:focus {
+          outline: none;
+          border-color: var(--color-primary);
+        }
+        
+        .form-input {
+          width: 100%;
+          box-sizing: border-box;
         }
         
         .form-hint {

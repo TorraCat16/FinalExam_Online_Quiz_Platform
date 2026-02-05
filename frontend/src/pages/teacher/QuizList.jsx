@@ -201,24 +201,69 @@ export default function TeacherQuizList() {
           margin: 0;
         }
         
+        /* Improved table spacing */
+        .table-container {
+          padding: var(--space-lg);
+        }
+        
+        .table-container table {
+          width: 100%;
+          border-collapse: separate;
+          border-spacing: 0;
+        }
+        
+        .table-container th {
+          padding: var(--space-md) var(--space-lg);
+          text-align: left;
+          font-weight: 600;
+          color: var(--color-text-light);
+          border-bottom: 2px solid var(--color-border);
+        }
+        
+        .table-container td {
+          padding: var(--space-lg);
+          vertical-align: middle;
+          border-bottom: 1px solid var(--color-border);
+        }
+        
+        .table-container tbody tr:last-child td {
+          border-bottom: none;
+        }
+        
+        .table-container tbody tr:hover {
+          background: var(--color-bg);
+        }
+        
         .quiz-title-cell {
           display: flex;
           flex-direction: column;
+          gap: var(--space-xs);
+        }
+        
+        .quiz-title-cell strong {
+          font-size: var(--font-size-base);
         }
         
         .quiz-desc {
           font-size: var(--font-size-sm);
           color: var(--color-text-light);
+          max-width: 300px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         
+        /* Rectangle status badge instead of round */
         .status-toggle {
-          padding: var(--space-xs) var(--space-sm);
+          padding: var(--space-xs) var(--space-md);
           border: none;
-          border-radius: 9999px;
+          border-radius: var(--border-radius);
           cursor: pointer;
           font-size: var(--font-size-sm);
-          font-weight: 500;
+          font-weight: 600;
           transition: all var(--transition-fast);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
         }
         
         .status-toggle.published {
@@ -241,11 +286,12 @@ export default function TeacherQuizList() {
         
         .action-buttons {
           display: flex;
-          gap: var(--space-xs);
+          gap: var(--space-sm);
+          flex-wrap: wrap;
         }
         
         .btn-sm {
-          padding: var(--space-xs) var(--space-sm);
+          padding: var(--space-sm) var(--space-md);
           font-size: var(--font-size-sm);
         }
         

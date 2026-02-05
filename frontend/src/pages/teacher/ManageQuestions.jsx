@@ -248,11 +248,11 @@ export default function ManageQuestions() {
               <label className="form-label">Question Text *</label>
               <textarea
                 name="text"
-                className="form-textarea"
+                className="form-textarea question-textarea"
                 placeholder="Enter your question..."
                 value={formData.text}
                 onChange={handleChange}
-                rows={3}
+                rows={5}
               />
             </div>
 
@@ -455,6 +455,23 @@ export default function ManageQuestions() {
           display: flex;
           flex-direction: column;
           gap: var(--space-md);
+        }
+        
+        .question-textarea {
+          width: 100%;
+          min-height: 120px;
+          padding: var(--space-md);
+          border: 1px solid var(--color-border);
+          border-radius: var(--border-radius);
+          font-size: var(--font-size-base);
+          font-family: inherit;
+          resize: vertical;
+          box-sizing: border-box;
+        }
+        
+        .question-textarea:focus {
+          outline: none;
+          border-color: var(--color-primary);
         }
         
         .options-editor {

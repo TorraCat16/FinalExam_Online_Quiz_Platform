@@ -22,7 +22,20 @@
   align-items: center;
   justify-content: center;
   padding: var(--space-md);
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* Beige to forest green gradient */
+  background: linear-gradient(135deg, #F5F5DC 0%, #1a5c3a 100%);
+}
+
+/* Red error alerts for auth pages */
+.auth-page .alert-error,
+.auth-card .alert-error {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: var(--space-md);
+  border-radius: var(--border-radius);
+  margin-bottom: var(--space-md);
+  font-weight: 500;
 }
 
 .auth-card {
